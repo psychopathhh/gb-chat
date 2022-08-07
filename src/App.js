@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
 import appStyle from './App.module.css';
 import { Message } from './Message';
-const setMessage = (value = '', author = 'User') => {
-  return {
+const setMessage = (value = '', author = 'User', time = new Date()) => {
+  return ({
     text: value,
     author: author,
-  };
+    time: time
+  });
 };
 
 export function App() {
@@ -19,17 +20,19 @@ export function App() {
     ) {
       setTimeout(
         () =>
-          setMessageList([...messageList, setMessage('I am a robot', 'Robot')]),
+          setMessageList([...messageList, setMessage('I am a robot', 'Robot', new Date())]),
         1500
       );
     }
   }, [messageList]);
 
   return (
-    <div className={appStyle.App}>
-      <div>
+    <div>
+      <div className={appStyle.AppBg}></div>
+
+      <div className={appStyle.App}>
         {messageList.map((item) => (
-          <Message text={item.text} author={item.author} />
+          <Message text={item.text} author={item.author} time={item.time} />
         ))}
       </div>
       <div className={appStyle.areaForWriting}>
@@ -44,7 +47,7 @@ export function App() {
           className={appStyle.sendBtn}
           onClick={() => {
             if (value !== '') {
-              setMessageList([...messageList, setMessage(value)]);
+              setMessageList([...messageList, setMessage(value, 'User', new Date())]);
               // setButtonClicks(buttonClicks + 1);
               setValue('');
             }

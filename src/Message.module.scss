@@ -1,26 +1,152 @@
+$userColor: rgb(54, 119, 79);
+$othersColor: rgb(46, 53, 46);
+
 .message {
   color: #fff;
-  max-width: 300px;
+  max-width: 400px;
   word-break: break-all;
-  word-wrap: break-word;
   padding: 7px;
-  background-color: rgb(46, 53, 46);
+  background-color: $othersColor;
   border-radius: 10px;
   box-sizing: border-box;
   text-align: left;
+  margin: 0 0 calc(100px + 5vmin) 0;
+
+  &:before {}
+
+  & p {
+    padding: 0;
+    margin: 0;
+  }
+
+  &Time {
+    color: rgb(158, 158, 158);
+    font-size: calc(10px + 1vmin);
+    display: flex;
+    padding: 5px 0 0 0;
+    box-sizing: border-box;
+
+    &User {
+      justify-content: end;
+    }
+
+    &Others {
+      justify-content: start;
+    }
+  }
 
   &Wrapper {
-    margin: 0 0 80px 0;
-    width: 70%;
-    height: 5px;
+    clear: both;
+    position: relative;
   }
-  &User {
-    position: absolute;
-    right: 5px;
-    background-color: rgb(54, 119, 79);
-  }
+
+  &User,
   &Others {
+    &:before {
+      content: '';
+      width: 0;
+      height: 0;
+      position: absolute;
+      border-left: 15px solid transparent;
+      border-right: 15px solid transparent;
+      bottom: 0;
+    }
+
+  }
+
+  &User {
+    float: right;
+    background-color: $userColor;
+    margin-right: 6%;
+
+    &:before {
+      border-bottom: 15px solid $userColor;
+      right: 7%;
+    }
+  }
+
+  &Others {
+    float: left;
+    margin-left: 6%;
+
+    &:before {
+      border-bottom: 15px solid $othersColor;
+      left: 7%;
+    }
+  }
+
+  &Author {
+    font-weight: 700;
     position: absolute;
-    left: 5px;
+    bottom: 20px;
+
+    &User {
+      color: $userColor;
+      right: 6%;
+
+      &::after {
+        content: '';
+        display: inline-block;
+        width: calc(10px + 1vmin);
+        height: calc(10px + 1vmin);
+        margin: 0 0 0 15px;
+        border-radius: 50%;
+        background-color: $userColor;
+      }
+    }
+
+    &Others {
+      color: $othersColor;
+      left: 6%;
+
+      &::before {
+        content: '';
+        display: inline-block;
+        width: calc(10px + 1vmin);
+        height: calc(10px + 1vmin);
+        margin: 0 15px 0 0;
+        border-radius: 50%;
+        background-color: $othersColor;
+      }
+    }
+  }
+}
+
+@media (min-width: 1440px) {
+  .message {
+    max-width: 70%;
+
+    &User {
+      margin-right: 0;
+
+      &:before {
+        bottom: -2px;
+        border-bottom: 15px solid $userColor;
+        right: 2%;
+      }
+    }
+
+    &Others {
+      margin-left: 0;
+
+      &:before {
+        bottom: -2px;
+        border-bottom: 15px solid $othersColor;
+        left: 2%;
+      }
+
+    }
+
+
+
+    &Author {
+      &User {
+        right: 0;
+      }
+
+      &Others {
+        left: 0;
+      }
+    }
   }
 }

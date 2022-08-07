@@ -1,14 +1,17 @@
 import messageStyle from './Message.module.css';
+import { SendingTime } from './SendingTime';
 
 export const Message = ({ text, author, time }) => {
-  const classes = `${messageStyle.message} ${
-    author === 'User' ? messageStyle.messageUser : messageStyle.messageOthers
-  }`;
+  const isUser = author === 'User'
+  const classesForMsg = `${messageStyle.message} ${isUser ? messageStyle.messageUser : messageStyle.messageOthers
+    }`;
+  const classesForAuthor = `${messageStyle.messageAuthor} ${isUser ? messageStyle.messageAuthorUser : messageStyle.messageAuthorOthers}`
   return (
     <div className={messageStyle.messageWrapper}>
-      <div className={classes}>
-        {/* <span className={messageStyle.MessageAuthor}>{author}</span> */}
-        <span className={messageStyle.MessageText}>{text}</span>
+      <span className={classesForAuthor}>{`${isUser ? 'Me' : author}`}</span>
+      <div className={classesForMsg}>
+        <p>{text}</p>
+        <SendingTime isUser={isUser} time={time} />
       </div>
     </div>
   );
