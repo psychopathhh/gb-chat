@@ -1,11 +1,28 @@
-import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import { App } from './App';
+import React from 'react';
+import { ThemeProvider, createTheme } from '@mui/material'
+import { CurrentChatArea, Layout, ChatList } from './components';
+import './global.css'
+
+const theme =
+  createTheme({
+    palette: {
+      primary: {
+        main: '#B1C5A0'
+      },
+      secondary: {
+        main: '#fff'
+      }
+    },
+  })
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+  <ThemeProvider theme={theme}>
+    <Layout currentChatArea={<CurrentChatArea />} chats={<ChatList />} />
+  </ThemeProvider>
 );
+
+
+
+
