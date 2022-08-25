@@ -187,3 +187,7 @@ code {
         linear-gradient(90deg, #02141a 30%, rgba(0, 0, 0, 0) 31%);
     background-color: #2b5278;
 }
+
+.Mui-selected {
+    background-color: rgb(200, 200, 200) !important;
+}

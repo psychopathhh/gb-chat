@@ -52,18 +52,6 @@ export const Msg = styled.div`
   margin: ${(props) => props.isUser ? '0 0 calc(30px + 1vmin) auto' : 'margin: auto 0 calc(30px + 1vmin) 0;'};
 `
 
-export const StyledHeader = styled.header`
-    padding: 20px 5px;
-    box-sizing: border-box;
-    font-size: 52px;
-    background-color: #00a884;
-    position: sticky;
-    display: flex;
-    justify-content: flex-end;
-    top: 0;
-    z-index: 2;
-`
-
 export const Time = styled.span`
     color: rgb(158, 158, 158);
     font-size: calc(10px + 1vmin);
