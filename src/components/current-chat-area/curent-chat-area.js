@@ -11,12 +11,12 @@ export const CurrentChatArea = () => {
     const [messageList, setMessageList] = useState(curChat);
     const [value, setValue] = useState('');
     const ref = useRef()
-    const sendMessage = (value = '', author = 'User', time = new Date()) => {
+    const sendMessage = (value = '', author = 'User') => {
         if (value) {
             const newMsg = {
                 text: value,
                 author: author,
-                time: time
+                time: new Date()
             }
             setMessageList([...messageList, newMsg])
             curChat.push(newMsg)
@@ -50,7 +50,7 @@ export const CurrentChatArea = () => {
         ) {
             timerId = setTimeout(
                 () => {
-                    sendMessage(`I am ${chats[chatId].name}`, 'Robot', new Date())
+                    sendMessage(`I am ${chats[chatId].name}`, 'Robot')
                 },
                 1500
             );
@@ -76,7 +76,7 @@ export const CurrentChatArea = () => {
                 onKeyPress={handlePressInput}
                 endAdornment={
                     <InputAdornment position='end'>
-                        {value && <SendIcon onClick={() => sendMessage(value, 'User', new Date())} />}
+                        {value && <SendIcon onClick={() => sendMessage(value)} />}
                     </InputAdornment>
                 }
             />
