@@ -1,9 +1,10 @@
-import React, { memo } from 'react'
+import React, { memo, useContext } from 'react'
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Avatar from '@mui/material/Avatar';
 import { Typography } from '@mui/material';
+import { ThemeContext } from '../../../theme-context';
 
 function stringToColor(string) {
     let hash = 0;
@@ -34,13 +35,15 @@ function stringAvatar(name) {
     };
 }
 
+
 export const Chat = memo(({ chat, selected }) => {
+    const { theme } = useContext(ThemeContext)
     return (
         <ListItemButton selected={selected} sx={{ flexWrap: 'wrap', padding: '10px', display: 'flex' }}>
             <ListItemIcon>
                 <Avatar {...stringAvatar(chat.name)} />
             </ListItemIcon>
-            <ListItemText sx={{ color: '#000' }} primary={chat.name} />
+            <ListItemText sx={{ color: `${theme.theme.contrastText}` }} primary={chat.name} />
             <ListItemText sx={{ width: '100%' }} primary={<Typography color='rgb(87, 87, 87)' noWrap>{chat.messages[chat.messages.length - 1].text}</Typography>} />
         </ListItemButton>
     )

@@ -1,9 +1,10 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState, useRef, useContext } from 'react'
 import { MessageList } from './message-list'
 import { Input, SendIcon } from './styles';
 import { InputAdornment } from '@mui/material';
 import { chats } from '../../constants';
 import { useParams } from 'react-router-dom';
+import { ThemeContext } from '../../theme-context';
 
 export const CurrentChatArea = () => {
     const { chatId } = useParams()
@@ -59,6 +60,7 @@ export const CurrentChatArea = () => {
             clearTimeout(timerId)
         }
     }, [messageList]);
+    const { theme } = useContext(ThemeContext)
 
     return (
         <>
@@ -66,8 +68,8 @@ export const CurrentChatArea = () => {
                 <MessageList messageList={messageList} />
             </div>
 
-            <Input
-                disableUnderline={true}
+            <Input style={{ backgroundColor: `${theme.theme.secondary}`, color: `${theme.theme.contrastText}` }}
+                disableUnderline={true} р
                 autoFocus={true}
                 fullWidth
                 placeholder="Message"

@@ -44,7 +44,6 @@ export const Msg = styled.div`
   max-width: 49%;
   word-break: break-all;
   padding: 10px;
-  background-color: ${(props) => props.isUser ? props.theme.palette.primary.main : props.theme.palette.secondary.main};
   border-radius: 10px;
   box-sizing: border-box;
   text-align: left;

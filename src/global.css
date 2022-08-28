@@ -142,7 +142,7 @@ body {
         sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background-color: #bcbcbc;
+    background-color: #ffffff;
 }
 
 code {
@@ -186,8 +186,4 @@ code {
         linear-gradient(330deg, #02141a 40%, rgba(0, 0, 0, 0) 41%),
         linear-gradient(90deg, #02141a 30%, rgba(0, 0, 0, 0) 31%);
     background-color: #2b5278;
-}
-
-.Mui-selected {
-    background-color: rgb(200, 200, 200) !important;
 }
