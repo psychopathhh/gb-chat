@@ -1,38 +1,30 @@
-import React, { useEffect, useState, useRef, useContext } from 'react'
+import React, { useEffect, useState, useRef, useContext, useCallback, useMemo } from 'react'
 import { MessageList } from './message-list'
 import { Input, SendIcon } from './styles';
 import { InputAdornment } from '@mui/material';
-import { chats } from '../../constants';
 import { useParams } from 'react-router-dom';
 import { ThemeContext } from '../../theme-context';
+import { useSelector, useDispatch } from 'react-redux/es/exports';
+import { messagesSelector, sendMessage } from '../../store/messages'
 
 export const CurrentChatArea = () => {
     const { chatId } = useParams()
-    let curChat = chats[chatId].messages
-    const [messageList, setMessageList] = useState(curChat);
+    const selector = useMemo(() => messagesSelector(chatId), [chatId])
+    const dispatch = useDispatch()
+    const messages = useSelector(selector)
     const [value, setValue] = useState('');
     const ref = useRef()
-    const sendMessage = (value = '', author = 'User') => {
-        if (value) {
-            const newMsg = {
-                text: value,
-                author: author,
-                time: new Date()
-            }
-            setMessageList([...messageList, newMsg])
-            curChat.push(newMsg)
+    const send = useCallback((message = '', author = 'User') => {
+        if (message) {
+            dispatch(sendMessage(chatId, { message, author }))
         }
         if (author === 'User') setValue('');
-    };
+    }, [chatId, dispatch]);
     const handlePressInput = ({ code }) => {
         if (code === 'Enter') {
-            sendMessage(value, 'User', new Date())
+            send(value)
         }
     }
-    useEffect(() => {
-        curChat = chats[chatId].messages
-        setMessageList(curChat)
-    }, [chatId])
     useEffect(() => {
         if (ref.current) {
             ref.current.scrollTo({
@@ -41,17 +33,17 @@ export const CurrentChatArea = () => {
                 behavior: 'smooth'
             })
         }
-    }, [messageList])
+    }, [messages])
 
     useEffect(() => {
         let timerId = null
         if (
-            messageList.length &&
-            messageList[messageList.length - 1].author === 'User'
+            messages.length &&
+            messages[messages.length - 1].author === 'User'
         ) {
             timerId = setTimeout(
                 () => {
-                    sendMessage(`I am ${chats[chatId].name}`, 'Robot')
+                    send(`I am ${chatId}`, chatId)
                 },
                 1500
             );
@@ -59,13 +51,13 @@ export const CurrentChatArea = () => {
         return () => {
             clearTimeout(timerId)
         }
-    }, [messageList]);
+    }, [send, messages]);
     const { theme } = useContext(ThemeContext)
 
     return (
         <>
             <div ref={ref}>
-                <MessageList messageList={messageList} />
+                <MessageList messageList={messages} chatId={chatId} />
             </div>
 
             <Input style={{ backgroundColor: `${theme.theme.secondary}`, color: `${theme.theme.contrastText}` }}
@@ -78,7 +70,7 @@ export const CurrentChatArea = () => {
                 onKeyPress={handlePressInput}
                 endAdornment={
                     <InputAdornment position='end'>
-                        {value && <SendIcon onClick={() => sendMessage(value)} />}
+                        {value && <SendIcon onClick={() => send(value)} />}
                     </InputAdornment>
                 }
             />

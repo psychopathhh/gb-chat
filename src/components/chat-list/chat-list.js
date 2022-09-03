@@ -1,16 +1,32 @@
-import React, { useState } from 'react';
+import React, { useCallback } from 'react';
 import List from '@mui/material/List';
 import { Chat } from './chat'
-import { chats } from '../../constants';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { deleteConversation, createConversation, conversationSelector } from '../../store/conversations';
 export function ChatList() {
     const { chatId } = useParams()
-    const [chatList] = useState(chats)
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const conversations = useSelector(conversationSelector)
+    const deleteConversationByName = useCallback((name, e) => {
+        e.preventDefault()
+        dispatch(deleteConversation(name))
+        navigate('../')
+    }, [dispatch, navigate])
+    const createConversationByName = () => {
+        const name = prompt('Chat name: ')
+        const isValidName = !conversations.includes(name)
+        if (name && isValidName) {
+            dispatch(createConversation(name))
+        }
+    }
     return (
         <List sx={{ display: 'flex', flexDirection: 'column', padding: 0 }}>
-            {Object.keys(chatList).map((id) => (
+            <button onClick={createConversationByName}>create new chat</button>
+            {conversations.map((chat) => (
 
-                <Link key={id} style={{ textDecoration: 'none' }} to={`/chat/${id}`}><Chat selected={id === chatId} chat={chatList[id]} /></Link>
+                <Link key={chat} style={{ textDecoration: 'none' }} to={`/chat/${chat}`}><Chat deleteConversationByName={deleteConversationByName} selected={chat === chatId} chat={chat} /></Link>
 
             ))}
         </List>

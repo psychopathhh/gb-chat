@@ -1,9 +1,9 @@
 import { Message } from './message'
-export const MessageList = ({ messageList }) => {
+export const MessageList = ({ messageList, chatId }) => {
     return (
         <>
-            {messageList.map((item, index) => (
-                <Message key={index} text={item.text} author={item.author} time={item.time} />
+            {messageList.map((message, index) => (
+                <Message chatId={chatId} key={index} message={message} />
             ))}
         </>
     )

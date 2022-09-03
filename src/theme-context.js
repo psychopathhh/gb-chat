@@ -32,7 +32,7 @@ export const CustomThemeProvider = ({ children, initialTheme = 'light' }) => {
                 theme: themes[name]
             })
         }
-    }, [theme])
+    }, [])
 
     return (
         <ThemeContext.Provider value={{ theme, themeSetter }}>{children}</ThemeContext.Provider>

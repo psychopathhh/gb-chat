@@ -1,16 +1,21 @@
-import { VISIBILITY } from "./types"
+import { TOGGLE_VISIBLE_PROFILE, UPDATE_PROFILE } from "./types"
 const initialState = {
     user: {
         name: 'John',
-        surname: 'Smith'
+        surname: 'Smith',
+        phone: '+35 545 78 41'
     },
-    profileVisibility: true
+    isVisibleProfile: true
 }
 
 export const profileReducer = (state = initialState, action) => {
     switch (action.type) {
-        case VISIBILITY:
-            return { ...state, profileVisibility: !state.profileVisibility }
+        case TOGGLE_VISIBLE_PROFILE:
+            return { ...state, isVisibleProfile: !state.isVisibleProfile }
+
+        case UPDATE_PROFILE:
+            return { ...state, user: { ...action.payload } }
+
         default:
             return state
     }

@@ -3,7 +3,8 @@ import { css } from '@emotion/css'
 import { useContext } from "react"
 import { ThemeContext } from "../../theme-context"
 import { Checkbox } from "@mui/material"
-import { setVisible } from "../../store/profile"
+import { toggleVisibleProfile } from "../../store/profile"
+import { ProfileForm } from "../profile-form"
 
 export const ProfilePage = () => {
     const data = useSelector((state) => state.profile)
@@ -11,11 +12,8 @@ export const ProfilePage = () => {
     const dispatch = useDispatch()
     return (
         <>
-            <Checkbox onChange={() => {
-                dispatch(setVisible())
-                console.log(data.profileVisibility)
-            }} defaultChecked color="success" />
-            {data.profileVisibility ? <div className={css({
+            <Checkbox onChange={() => dispatch(toggleVisibleProfile())} defaultChecked color="success" />
+            {data.isVisibleProfile ? <div className={css({
                 margin: '0 auto',
                 width: '70%',
                 textAlign: 'center',
@@ -29,16 +27,17 @@ export const ProfilePage = () => {
                 boxSizing: 'border-box',
                 borderRadius: '15px'
             })}>
-                <h1><span className={css({
+                {Object.keys(data.user).map(id =>
+                (<h1 key={id}><span className={css({
+                    textTransform: 'capitalize',
                     fontWeight: 700,
                     fontSize: 28,
 
-                })}>Name:</span> {data.user.name}</h1>
-                <h1><span className={css({
-                    fontWeight: 700,
-                    fontSize: 28,
+                })}>{id}: </span>{data.user[id]}</h1>)
+                )}
+            </div> : <></>}
 
-                })}>Surname:</span>  {data.user.surname}</h1>
-            </div> : <></>}</>
+            <ProfileForm {...data.user} />
+        </>
     )
 }

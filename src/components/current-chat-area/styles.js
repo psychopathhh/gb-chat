@@ -43,7 +43,8 @@ export const Msg = styled.div`
   color: #000;
   max-width: 49%;
   word-break: break-all;
-  padding: 10px;
+  margin: 10px;
+  padding: 5px;
   border-radius: 10px;
   box-sizing: border-box;
   text-align: left;
