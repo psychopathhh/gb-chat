@@ -5,7 +5,7 @@ import { InputAdornment } from '@mui/material';
 import { useParams } from 'react-router-dom';
 import { ThemeContext } from '../../theme-context';
 import { useSelector, useDispatch } from 'react-redux/es/exports';
-import { messagesSelector, sendMessage } from '../../store/messages'
+import { messagesSelector, sendMessageWithBot } from '../../store/messages'
 
 export const CurrentChatArea = () => {
     const { chatId } = useParams()
@@ -16,7 +16,7 @@ export const CurrentChatArea = () => {
     const ref = useRef()
     const send = useCallback((message = '', author = 'User') => {
         if (message) {
-            dispatch(sendMessage(chatId, { message, author }))
+            dispatch(sendMessageWithBot(chatId, { message, author }))
         }
         if (author === 'User') setValue('');
     }, [chatId, dispatch]);
@@ -35,23 +35,6 @@ export const CurrentChatArea = () => {
         }
     }, [messages])
 
-    useEffect(() => {
-        let timerId = null
-        if (
-            messages.length &&
-            messages[messages.length - 1].author === 'User'
-        ) {
-            timerId = setTimeout(
-                () => {
-                    send(`I am ${chatId}`, chatId)
-                },
-                1500
-            );
-        }
-        return () => {
-            clearTimeout(timerId)
-        }
-    }, [send, messages]);
     const { theme } = useContext(ThemeContext)
 
     return (
@@ -61,7 +44,7 @@ export const CurrentChatArea = () => {
             </div>
 
             <Input style={{ backgroundColor: `${theme.theme.secondary}`, color: `${theme.theme.contrastText}` }}
-                disableUnderline={true} р
+                disableUnderline={true}
                 autoFocus={true}
                 fullWidth
                 placeholder="Message"

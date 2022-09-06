@@ -2,7 +2,6 @@ import { SendingTime } from './SendingTime';
 import { Msg } from '../../styles'
 import { useContext } from 'react';
 import { ThemeContext } from '../../../../theme-context';
-import HighlightOffOutlinedIcon from '@mui/icons-material/HighlightOffOutlined';
 import { deleteMessage } from '../../../../store/messages/action';
 import { useDispatch } from 'react-redux';
 import { RemoveBtn } from '../../../remove-btn/RemoveBtn';

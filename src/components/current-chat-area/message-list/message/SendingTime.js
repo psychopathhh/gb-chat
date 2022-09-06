@@ -1,6 +1,7 @@
 import { Time } from '../../styles'
 
 export const SendingTime = ({ isUser, time }) => {
+    time = new Date(time)
     const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
     const h = time.getHours()
     const m = time.getMinutes()
