@@ -6,12 +6,18 @@ import storage from "redux-persist/lib/storage";
 
 import { profileReducer } from "./profile";
 import { conversationsReducer } from './conversations'
-import { messageReducer } from "./messages/reducer";
+import { messageReducer } from "./messages";
 import { logger, timeScheduler, botMessage } from "./middlewares";
+import { gistsReducer } from './gists'
+import { getPublicApi, searchGistsByNameApi } from "../api/gists";
+
+const publicApi = { getPublicApi }
+const personalGistsApi = { searchGistsByNameApi }
 
 const persistConfig = {
     key: 'root',
-    storage
+    storage,
+    blacklist: ['gists']
 }
 
 const persistedReducer = persistReducer(
@@ -19,14 +25,15 @@ const persistedReducer = persistReducer(
     combineReducers({
         profile: profileReducer,
         conversations: conversationsReducer,
-        messages: messageReducer
+        messages: messageReducer,
+        gists: gistsReducer
     })
 )
 
 export const store = createStore(
     persistedReducer,
     composeWithDevTools(
-        applyMiddleware(logger, timeScheduler, botMessage, thunk)
+        applyMiddleware(logger, timeScheduler, botMessage, thunk.withExtraArgument({ publicApi, personalGistsApi }))
     )
 
 )

@@ -2,7 +2,7 @@ import ReactDOM from 'react-dom/client';
 import React from 'react';
 import { PersistGate } from 'redux-persist/integration/react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { ChatPage, HomePage, ProfilePage } from './components/pages';
+import { ChatPage, GistsPage, HomePage, ProfilePage } from './components/pages';
 import './global.css'
 import { MainHeader } from './components/main-header/header';
 import { CustomThemeProvider } from './theme-context';
@@ -20,6 +20,7 @@ root.render(
             <Route path='/' element={<HomePage />} />
             <Route exact path='/chat/*' element={<ChatPage />} />
             <Route path='/profile' element={<ProfilePage />} />
+            <Route path='/gists' element={<GistsPage />} />
             <Route path='*' element={<h1>404</h1>} />
           </Routes>
         </BrowserRouter>
