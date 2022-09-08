@@ -1,0 +1,40 @@
+.menu {
+    padding: 20px 5px;
+    height: 10%;
+    box-sizing: border-box;
+    background-color: #00a884;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    text-decoration: none;
+    font-size: 36px;
+    font-weight: 400;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: #fff;
+}
+
+.logo:hover {
+    color: rgb(200, 200, 200);
+}
+
+.menu-list {
+    display: flex;
+    list-style: none;
+    gap: 30px;
+    align-items: center;
+}
+
+.menu-list-item {
+    text-decoration: none;
+    font-size: 26px;
+    font-weight: 500;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color: rgb(200, 200, 200);
+}
+
+.menu-list-item:hover {
+    color: #fff;
+}
