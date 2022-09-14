@@ -1,0 +1,1 @@
+export const conversationSelector = state => state.conversations.conversations
