@@ -10,14 +10,15 @@ import { messageReducer } from "./messages";
 import { logger, timeScheduler, botMessage } from "./middlewares";
 import { gistsReducer } from './gists'
 import { getPublicApi, searchGistsByNameApi } from "../api/gists";
+import { createConversationApi, getConversationsApi, removeConversationApi } from "../api/conversations";
+import { createMessageApi, getMessagesApi, deleteMessageApi } from "../api/messages";
 
-const publicApi = { getPublicApi }
-const personalGistsApi = { searchGistsByNameApi }
+const api = { getPublicApi, searchGistsByNameApi, createConversationApi, getConversationsApi, removeConversationApi, getMessagesApi, createMessageApi, deleteMessageApi }
 
 const persistConfig = {
     key: 'root',
     storage,
-    blacklist: ['gists']
+    whitelist: ['profile']
 }
 
 const persistedReducer = persistReducer(
@@ -33,7 +34,7 @@ const persistedReducer = persistReducer(
 export const store = createStore(
     persistedReducer,
     composeWithDevTools(
-        applyMiddleware(logger, timeScheduler, botMessage, thunk.withExtraArgument({ publicApi, personalGistsApi }))
+        applyMiddleware(logger, timeScheduler, botMessage, thunk.withExtraArgument(api))
     )
 
 )

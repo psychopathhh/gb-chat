@@ -5,7 +5,7 @@ import { InputAdornment } from '@mui/material';
 import { useParams } from 'react-router-dom';
 import { ThemeContext } from '../../theme-context';
 import { useSelector, useDispatch } from 'react-redux/es/exports';
-import { messagesSelector, sendMessageWithBot } from '../../store/messages'
+import { messagesSelector, sendMessageFb } from '../../store/messages'
 
 export const CurrentChatArea = () => {
     const { chatId } = useParams()
@@ -16,7 +16,7 @@ export const CurrentChatArea = () => {
     const ref = useRef()
     const send = useCallback((message = '', author = 'User') => {
         if (message) {
-            dispatch(sendMessageWithBot(chatId, { message, author }))
+            dispatch(sendMessageFb({ message, author }, chatId))
         }
         if (author === 'User') setValue('');
     }, [chatId, dispatch]);

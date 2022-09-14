@@ -52,7 +52,7 @@ export const GistsPage = () => {
                         onChange={(e) => setValue(e.target.value)}
                         endAdornment={
                             <InputAdornment position='end'>
-                                {value && <SearchIcon onClick={() => dispatch(getPersonalGists(value))} />}
+                                {value && <SearchIcon style={{ color: `${theme.theme.contrastText}` }} onClick={() => dispatch(getPersonalGists(value))} />}
                             </InputAdornment>
                         }
                     />

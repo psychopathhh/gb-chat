@@ -3,7 +3,7 @@ import List from '@mui/material/List';
 import { Chat } from './chat'
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { deleteConversation, createConversation, conversationSelector } from '../../store/conversations';
+import { createConversationByName as createConversation, conversationSelector, removeConversationByName } from '../../store/conversations';
 export function ChatList() {
     const { chatId } = useParams()
     const dispatch = useDispatch()
@@ -11,7 +11,7 @@ export function ChatList() {
     const conversations = useSelector(conversationSelector)
     const deleteConversationByName = useCallback((name, e) => {
         e.preventDefault()
-        dispatch(deleteConversation(name))
+        dispatch(removeConversationByName(name))
         navigate('../')
     }, [dispatch, navigate])
     const createConversationByName = () => {
