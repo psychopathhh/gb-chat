@@ -1,6 +1,6 @@
 import { SEND_MESSAGE, DELETE_MESSAGE, GET_MESSAGES_ERROR, GET_MESSAGES_START, GET_MESSAGES_SUCCESS, CREATE_MESSAGE_ERROR, CREATE_MESSAGE_START, CREATE_MESSAGE_SUCCESS, REMOVE_MESSAGE_ERROR, REMOVE_MESSAGE_START, REMOVE_MESSAGE_SUCCESS } from "./types"
-import { nanoid } from 'nanoid'
-const initialState = {
+const s = 5
+export const initialState = {
     messages: {},
     error: null,
     errorCreate: null,
@@ -10,7 +10,7 @@ const initialState = {
     pendingRemove: false
 }
 
-export const messageReducer = (state = initialState, action) => {
+export const messageReducer = (state = initialState, action = {}) => {
     switch (action.type) {
         case SEND_MESSAGE:
             return {
@@ -18,7 +18,7 @@ export const messageReducer = (state = initialState, action) => {
                 messages: {
                     ...state.messages,
                     [action.payload.chatId]: [...(state.messages[action.payload.chatId] ?? []),
-                    { ...action.payload.message, id: nanoid(), time: new Date() }
+                    { ...action.payload.message, id: 1, time: new Date() }
                     ]
                 }
             }
@@ -38,7 +38,7 @@ export const messageReducer = (state = initialState, action) => {
         case GET_MESSAGES_SUCCESS:
             return { ...state, pending: false, messages: action.payload }
         case GET_MESSAGES_ERROR:
-            return { ...state, pending: true, error: action.payload }
+            return { ...state, pending: false, error: action.payload }
 
         case CREATE_MESSAGE_START:
             return { ...state, pendingCreate: true, errorCreate: null }
@@ -53,7 +53,7 @@ export const messageReducer = (state = initialState, action) => {
                 }
             }
         case CREATE_MESSAGE_ERROR:
-            return { ...state, pendingCreate: true, errorCreate: action.payload }
+            return { ...state, pendingCreate: false, errorCreate: action.payload }
 
         case REMOVE_MESSAGE_START:
             return { ...state, pendingRemove: true, errorRemove: null }

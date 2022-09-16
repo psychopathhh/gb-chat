@@ -2,7 +2,7 @@ import { getGistsError, getGistsSuccess, getGistsStart, getPersonalGistsError, g
 export const getGists = (page) => async (dispatch, _, api) => {
     try {
         dispatch(getGistsStart())
-        const { data } = await api.publicApi.getPublicApi(page)
+        const { data } = await api.getPublicApi(page)
         dispatch(getGistsSuccess(data))
     } catch (e) {
         dispatch(getGistsError(e))
@@ -12,7 +12,7 @@ export const getGists = (page) => async (dispatch, _, api) => {
 export const getPersonalGists = (name) => async (dispatch, _, api) => {
     try {
         dispatch(getPersonalGistsStart())
-        const { data } = await api.personalGistsApi.searchGistsByNameApi(name)
+        const { data } = await api.searchGistsByNameApi(name)
         dispatch(getPersonalGistsSuccess(data))
     }
     catch (e) {
